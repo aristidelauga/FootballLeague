@@ -11,6 +11,10 @@
 		92AE00932A3C89F60098C1BC /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92AE00922A3C89F60098C1BC /* ContentView.swift */; };
 		92AE00952A3C89F80098C1BC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 92AE00942A3C89F80098C1BC /* Assets.xcassets */; };
 		92AE00982A3C89F80098C1BC /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 92AE00972A3C89F80098C1BC /* Preview Assets.xcassets */; };
+		92AE00A22A3C8AE10098C1BC /* League.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92AE00A12A3C8AE10098C1BC /* League.swift */; };
+		92AE00A42A3C8BEA0098C1BC /* SoccerLeagueViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92AE00A32A3C8BEA0098C1BC /* SoccerLeagueViewModel.swift */; };
+		92AE00A62A3C8F990098C1BC /* Team.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92AE00A52A3C8F990098C1BC /* Team.swift */; };
+		92AE00C52A3DAF190098C1BC /* URLFromAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92AE00C42A3DAF190098C1BC /* URLFromAPI.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +23,10 @@
 		92AE00922A3C89F60098C1BC /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		92AE00942A3C89F80098C1BC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		92AE00972A3C89F80098C1BC /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		92AE00A12A3C8AE10098C1BC /* League.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = League.swift; sourceTree = "<group>"; };
+		92AE00A32A3C8BEA0098C1BC /* SoccerLeagueViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoccerLeagueViewModel.swift; sourceTree = "<group>"; };
+		92AE00A52A3C8F990098C1BC /* Team.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Team.swift; sourceTree = "<group>"; };
+		92AE00C42A3DAF190098C1BC /* URLFromAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLFromAPI.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,7 +60,9 @@
 			isa = PBXGroup;
 			children = (
 				92AE00902A3C89F60098C1BC /* FootLeagueApp.swift */,
-				92AE00922A3C89F60098C1BC /* ContentView.swift */,
+				92AE009E2A3C8A760098C1BC /* Models */,
+				92AE00A02A3C8AC10098C1BC /* Views */,
+				92AE009F2A3C8AB30098C1BC /* ViewModels */,
 				92AE00942A3C89F80098C1BC /* Assets.xcassets */,
 				92AE00962A3C89F80098C1BC /* Preview Content */,
 			);
@@ -65,6 +75,32 @@
 				92AE00972A3C89F80098C1BC /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		92AE009E2A3C8A760098C1BC /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				92AE00A12A3C8AE10098C1BC /* League.swift */,
+				92AE00A52A3C8F990098C1BC /* Team.swift */,
+				92AE00C42A3DAF190098C1BC /* URLFromAPI.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		92AE009F2A3C8AB30098C1BC /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				92AE00A32A3C8BEA0098C1BC /* SoccerLeagueViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		92AE00A02A3C8AC10098C1BC /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				92AE00922A3C89F60098C1BC /* ContentView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -137,8 +173,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				92AE00A42A3C8BEA0098C1BC /* SoccerLeagueViewModel.swift in Sources */,
 				92AE00932A3C89F60098C1BC /* ContentView.swift in Sources */,
+				92AE00A22A3C8AE10098C1BC /* League.swift in Sources */,
+				92AE00A62A3C8F990098C1BC /* Team.swift in Sources */,
 				92AE00912A3C89F60098C1BC /* FootLeagueApp.swift in Sources */,
+				92AE00C52A3DAF190098C1BC /* URLFromAPI.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
