@@ -17,9 +17,3 @@ struct League: Codable {
   let strSport: String
   let strLeagueAlternate: String?
 }
-
-/*
- 
- {"idLeague":"4328","strLeague":"English Premier League","strSport":"Soccer","strLeagueAlternate":"Premier League, EPL"}
- 
- */

@@ -10,9 +10,11 @@ import Foundation
 class SoccerLeagueViewModel: ObservableObject {
   @Published var allLeagues = [League]()
   @Published var teams = [Team]()
+  @Published var selectedTeam: Team
   @Published var urlComponents: URLComponents
   
   init() {
+    selectedTeam = Team(idTeam: "", strTeam: "", strTeamShort: "", strAlternate: "", strLeague: "", idLeague: "", strDescriptionFR: "", strCountry: "", strTeamBadge: "", strTeamBanner: "")
     var components = URLComponents()
     components.scheme = "https"
     components.host = "thesportsdb.com"
@@ -30,7 +32,6 @@ class SoccerLeagueViewModel: ObservableObject {
     guard let soccerUrl = components.url else {
       fatalError("Could not create URL from components")
     }
-    print("Depuis la func\(soccerUrl)")
     let (data, response) = try await URLSession.shared.data(from: soccerUrl)
     guard
       let httpResponse = response as? HTTPURLResponse,
