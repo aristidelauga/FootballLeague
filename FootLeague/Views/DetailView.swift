@@ -10,13 +10,27 @@ import SwiftUI
 struct DetailView: View {
   @ObservedObject var soccerLeagueViewModel: SoccerLeagueViewModel
   var body: some View {
-    VStack {
-      AsyncImage(url: URL(string: soccerLeagueViewModel.selectedTeam.strTeamBanner ??  "https://www.thesportsdb.com/images//media/team/banner/wvaw7l1641382901.jpg")) { image in
-//      AsyncImage(url: URL(string: "https://www.thesportsdb.com/images//media/team/banner/wvaw7l1641382901.jpg")!) { image in
-        image.resizable()
-          .frame(width: UIScreen.main.bounds.width, height: 250)
-      } placeholder: {
-        ProgressView()
+    ScrollView(.vertical, showsIndicators: false ){
+      VStack(alignment: .leading, spacing: 10) {
+        if let banner = soccerLeagueViewModel.selectedTeam.strTeamBanner {
+          AsyncImage(url: URL(string: banner)) { image in
+            //        AsyncImage(url: URL(string: "https://www.thesportsdb.com/images//media/team/banner/wvaw7l1641382901.jpg")!) { image in
+            image.resizable()
+              .aspectRatio(contentMode: .fit)
+              .frame(width: UIScreen.main.bounds.width)
+              .frame(maxHeight: .infinity)
+          } placeholder: {
+            ProgressView()
+          }
+        }
+        Text(soccerLeagueViewModel.selectedTeam.strCountry ?? "France")
+        Text(soccerLeagueViewModel.selectedTeam.strLeague ?? "French Ligue 1")
+          .bold()
+        HStack {
+          Spacer()
+          Text(soccerLeagueViewModel.selectedTeam.strDescriptionFR ?? "No description")
+          Spacer()
+        }
       }
     }
     .navigationTitle(soccerLeagueViewModel.selectedTeam.strTeam ?? "")

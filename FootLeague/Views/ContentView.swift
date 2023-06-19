@@ -23,9 +23,8 @@ struct ContentView: View {
       ScrollView(.vertical, showsIndicators: false) {
         LazyVGrid(columns: columns, alignment: .center) {
           ForEach(soccerLeagueViewModel.teams, id: \.idTeam) { team in
-            NavigationLink(destination: VStack {
-              DetailView(soccerLeagueViewModel: soccerLeagueViewModel)
-            }, tag: team.idTeam ?? "", selection: $currentSelection) {
+            NavigationLink(destination: DetailView(soccerLeagueViewModel: soccerLeagueViewModel),
+                           tag: team.idTeam ?? "", selection: $currentSelection) {
               VStack {
                 AsyncImage(url: URL(string: team.strTeamBadge ?? "https://www.thesportsdb.com/images/media/team/fanart/oybkzq1607720313.jpg")!) { image in
                   image.resizable()
@@ -38,20 +37,17 @@ struct ContentView: View {
                 Text(team.strTeam ?? "")
               }
             }
-            .tag(team.idTeam)
-            .onChange(of: currentSelection) { newValue in
-              let newValue = newValue
-              if let selectedTeam = soccerLeagueViewModel.teams.first(where: { $0.idTeam == newValue }) {
-                currentTeam = selectedTeam.strTeam
-              }
-            }
+                           .tag(team.idTeam)
+                           .onChange(of: currentSelection) { newValue in
+                             let newValue = newValue
+                             if let selectedTeam = soccerLeagueViewModel.teams.first(where: { $0.idTeam == newValue }) {
+                               currentTeam = selectedTeam.strTeam
+                             }
+                           }
           }
           .onChange(of: currentTeam) { newValue in
-            soccerLeagueViewModel.urlComponents.scheme = "https"
-            soccerLeagueViewModel.urlComponents.host = "thesportsdb.com"
-            soccerLeagueViewModel.urlComponents.path = "/api/v1/json/50130162/searchteams.php"
+            soccerLeagueViewModel.urlComponents = URLComponents.selectedTeam
             soccerLeagueViewModel.urlComponents.queryItems = [URLQueryItem(name: "t", value: newValue)]
-            print(soccerLeagueViewModel.urlComponents.url ?? "")
             Task {
               soccerLeagueViewModel.selectedTeam = try! await soccerLeagueViewModel.load(from: soccerLeagueViewModel.urlComponents, type: LeagueTeams.self).teams.first!
             }
@@ -60,30 +56,26 @@ struct ContentView: View {
       }
     }
     .onAppear {
-      soccerLeagueViewModel.urlComponents.scheme = "https"
-      soccerLeagueViewModel.urlComponents.host = "thesportsdb.com"
-      soccerLeagueViewModel.urlComponents.path = "/api/v1/json/50130162/all_leagues.php"
       Task {
-        soccerLeagueViewModel.allLeagues = try! await soccerLeagueViewModel.load(from: soccerLeagueViewModel.urlComponents, type: SoccerLeague.self).leagues
+        soccerLeagueViewModel.allLeagues = try! await soccerLeagueViewModel.load(from: URLComponents.league, type: SoccerLeague.self).leagues
       }
     }
     .searchable(text: $searchText, prompt: "Search by league", suggestions: {
-      if searchText.isEmpty {
-        ForEach(soccerLeagueViewModel.allLeagues, id: \.idLeague) { suggestion in
+      if !isSearching && !searchText.isEmpty {
+        ForEach(soccerLeagueViewModel.allLeagues.filter { $0.strLeague.localizedCaseInsensitiveContains(searchText)}) { suggestion in
           Text(suggestion.strLeague)
             .searchCompletion(suggestion.strLeague)
         }
       }
     })
     .onSubmit(of: .search) {
-      soccerLeagueViewModel.urlComponents.scheme = "https"
-      soccerLeagueViewModel.urlComponents.host = "thesportsdb.com"
-      soccerLeagueViewModel.urlComponents.path = "/api/v1/json/50130162/search_all_teams.php"
+      soccerLeagueViewModel.urlComponents = URLComponents.teams
       soccerLeagueViewModel.urlComponents.queryItems = [URLQueryItem(name: "l", value: searchText)]
       Task {
         soccerLeagueViewModel.teams = try! await soccerLeagueViewModel.load(from: soccerLeagueViewModel.urlComponents, type: LeagueTeams.self).teams
         soccerLeagueViewModel.teams = soccerLeagueViewModel.teams.sorted { $1.strTeam ?? "" < $0.strTeam ?? "" }
       }
+      UIApplication.shared.keyWindow?.endEditing(true)
     }
   }
 }
@@ -144,5 +136,14 @@ struct ContentView_Previews: PreviewProvider {
  Text(team.strTeam ?? "")
  }
  }
+ 
+ //    .searchable(text: $searchText, prompt: "Search by league", suggestions: {
+ //      if searchText.isEmpty {
+ //        ForEach(soccerLeagueViewModel.allLeagues, id: \.idLeague) { suggestion in
+ //          Text(suggestion.strLeague)
+ //            .searchCompletion(suggestion.strLeague)
+ //        }
+ //      }
+ //    })
  
  */

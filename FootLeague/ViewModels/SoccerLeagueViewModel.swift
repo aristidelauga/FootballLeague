@@ -47,25 +47,3 @@ class SoccerLeagueViewModel: ObservableObject {
   
   
 }
-
-
-/*
- 
- https://www.thesportsdb.com/api/v1/json/50130162/search_all_teams.php?l=French%20Ligue%201
- 
- /*
-  
-  https://www.thesportsdb.com/api/v1/json/50130162/all_leagues.php
-  
-  */
- //  func load<T: Codable>(from: String, withSpecification: String?, type: T.Type) async throws -> T {
-
- 
- //    let (data, response) = try await URLSession.shared.data(from: URL(string: url) ?? URL(string: "https://www.thesportsdb.com/api/v1/json/50130162/search_all_teams.php?l=French%20Ligue%201")!)
- //    let (data, response) = try await URLSession.shared.data(from: URL(string: url)!)
- 
- 
- 
- //      throw FetchingError.decoderError
-
- */
