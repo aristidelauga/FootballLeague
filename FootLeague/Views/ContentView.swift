@@ -87,9 +87,6 @@ struct ContentView: View {
         //MARK: Team filtering
         var filteredTeams: [Team] = []
         for index in 0..<soccerLeagueViewModel.teams.count {
-//          if (index % 2) != 0 {
-//            soccerLeagueViewModel.teams.remove(at: index)
-//          }
           if (index % 2) == 0 {
             filteredTeams.append(soccerLeagueViewModel.teams[index])
           }
