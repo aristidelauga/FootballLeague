@@ -77,12 +77,24 @@ struct ContentView: View {
       }
     })
     .onSubmit(of: .search) {
-      print(isSearching)
       soccerLeagueViewModel.urlComponents = URLComponents.teams
       soccerLeagueViewModel.urlComponents.queryItems = [URLQueryItem(name: "l", value: searchText)]
       Task {
         soccerLeagueViewModel.teams = try! await soccerLeagueViewModel.load(from: soccerLeagueViewModel.urlComponents, type: LeagueTeams.self).teams
         soccerLeagueViewModel.teams = soccerLeagueViewModel.teams.sorted { $1.strTeam ?? "" < $0.strTeam ?? "" }
+        
+        
+        //MARK: Team filtering
+        var filteredTeams: [Team] = []
+        for index in 0..<soccerLeagueViewModel.teams.count {
+//          if (index % 2) != 0 {
+//            soccerLeagueViewModel.teams.remove(at: index)
+//          }
+          if (index % 2) == 0 {
+            filteredTeams.append(soccerLeagueViewModel.teams[index])
+          }
+        }
+        soccerLeagueViewModel.teams = filteredTeams
       }
       UIApplication.shared.keyWindow?.endEditing(true)
       searchText = ""

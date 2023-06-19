@@ -12,7 +12,7 @@ struct LeagueTeams: Codable {
 }
 
 
-struct Team: Codable {
+struct Team: Codable, Equatable {
   var idTeam: String?
   var strTeam, strTeamShort, strAlternate: String?
   var strLeague, idLeague: String?
