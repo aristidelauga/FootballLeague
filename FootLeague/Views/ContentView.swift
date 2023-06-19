@@ -23,27 +23,29 @@ struct ContentView: View {
       ScrollView(.vertical, showsIndicators: false) {
         LazyVGrid(columns: columns, alignment: .center) {
           ForEach(soccerLeagueViewModel.teams, id: \.idTeam) { team in
-            NavigationLink(destination: DetailView(soccerLeagueViewModel: soccerLeagueViewModel),
-                           tag: team.idTeam ?? "", selection: $currentSelection) {
-              VStack {
-                AsyncImage(url: URL(string: team.strTeamBadge ?? "https://www.thesportsdb.com/images/media/team/fanart/oybkzq1607720313.jpg")!) { image in
-                  image.resizable()
-                    .frame(maxWidth: 180, maxHeight: 240)
-                    .aspectRatio(contentMode: .fill)
-                } placeholder: {
-                  ProgressView()
+            NavigationLink(
+              destination: DetailView(soccerLeagueViewModel: soccerLeagueViewModel),
+              tag: team.idTeam ?? "",
+              selection: $currentSelection) {
+                VStack {
+                  AsyncImage(url: URL(string: team.strTeamBadge ?? "https://www.thesportsdb.com/images/media/team/fanart/oybkzq1607720313.jpg")!) { image in
+                    image.resizable()
+                      .frame(maxWidth: 180, maxHeight: 240)
+                      .aspectRatio(contentMode: .fill)
+                  } placeholder: {
+                    ProgressView()
+                  }
+                  .frame(maxWidth: 180, maxHeight: 360)
+                  Text(team.strTeam ?? "")
                 }
-                .frame(maxWidth: 180, maxHeight: 360)
-                Text(team.strTeam ?? "")
+                .tag(team.idTeam)
+                .onChange(of: currentSelection) { newValue in
+                  let newValue = newValue
+                  if let selectedTeam = soccerLeagueViewModel.teams.first(where: { $0.idTeam == newValue }) {
+                    currentTeam = selectedTeam.strTeam
+                  }
+                }
               }
-            }
-                           .tag(team.idTeam)
-                           .onChange(of: currentSelection) { newValue in
-                             let newValue = newValue
-                             if let selectedTeam = soccerLeagueViewModel.teams.first(where: { $0.idTeam == newValue }) {
-                               currentTeam = selectedTeam.strTeam
-                             }
-                           }
           }
           .onChange(of: currentTeam) { newValue in
             soccerLeagueViewModel.urlComponents = URLComponents.selectedTeam
@@ -67,8 +69,15 @@ struct ContentView: View {
             .searchCompletion(suggestion.strLeague)
         }
       }
+      if !isSearching {
+        ForEach(soccerLeagueViewModel.allLeagues.filter { $0.strLeague.localizedCaseInsensitiveContains(searchText)}) { suggestion in
+          Text(suggestion.strLeague)
+            .searchCompletion(suggestion.strLeague)
+        }
+      }
     })
     .onSubmit(of: .search) {
+      print(isSearching)
       soccerLeagueViewModel.urlComponents = URLComponents.teams
       soccerLeagueViewModel.urlComponents.queryItems = [URLQueryItem(name: "l", value: searchText)]
       Task {
@@ -76,6 +85,7 @@ struct ContentView: View {
         soccerLeagueViewModel.teams = soccerLeagueViewModel.teams.sorted { $1.strTeam ?? "" < $0.strTeam ?? "" }
       }
       UIApplication.shared.keyWindow?.endEditing(true)
+      searchText = ""
     }
   }
 }

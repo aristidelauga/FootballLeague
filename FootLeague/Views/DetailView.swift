@@ -14,7 +14,6 @@ struct DetailView: View {
       VStack(alignment: .leading, spacing: 10) {
         if let banner = soccerLeagueViewModel.selectedTeam.strTeamBanner {
           AsyncImage(url: URL(string: banner)) { image in
-            //        AsyncImage(url: URL(string: "https://www.thesportsdb.com/images//media/team/banner/wvaw7l1641382901.jpg")!) { image in
             image.resizable()
               .aspectRatio(contentMode: .fit)
               .frame(width: UIScreen.main.bounds.width)
@@ -28,7 +27,7 @@ struct DetailView: View {
           .bold()
         HStack {
           Spacer()
-          Text(soccerLeagueViewModel.selectedTeam.strDescriptionFR ?? "No description")
+          Text(soccerLeagueViewModel.selectedTeam.description)
           Spacer()
         }
       }
