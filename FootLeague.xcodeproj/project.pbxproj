@@ -15,7 +15,7 @@
 		92AE00A22A3C8AE10098C1BC /* League.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92AE00A12A3C8AE10098C1BC /* League.swift */; };
 		92AE00A42A3C8BEA0098C1BC /* SoccerLeagueViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92AE00A32A3C8BEA0098C1BC /* SoccerLeagueViewModel.swift */; };
 		92AE00A62A3C8F990098C1BC /* Team.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92AE00A52A3C8F990098C1BC /* Team.swift */; };
-		92AE00C52A3DAF190098C1BC /* URLFromAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92AE00C42A3DAF190098C1BC /* URLFromAPI.swift */; };
+		92AE00C52A3DAF190098C1BC /* URLComponents+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92AE00C42A3DAF190098C1BC /* URLComponents+Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,7 +28,7 @@
 		92AE00A12A3C8AE10098C1BC /* League.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = League.swift; sourceTree = "<group>"; };
 		92AE00A32A3C8BEA0098C1BC /* SoccerLeagueViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoccerLeagueViewModel.swift; sourceTree = "<group>"; };
 		92AE00A52A3C8F990098C1BC /* Team.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Team.swift; sourceTree = "<group>"; };
-		92AE00C42A3DAF190098C1BC /* URLFromAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLFromAPI.swift; sourceTree = "<group>"; };
+		92AE00C42A3DAF190098C1BC /* URLComponents+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLComponents+Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,7 +84,7 @@
 			children = (
 				92AE00A12A3C8AE10098C1BC /* League.swift */,
 				92AE00A52A3C8F990098C1BC /* Team.swift */,
-				92AE00C42A3DAF190098C1BC /* URLFromAPI.swift */,
+				92AE00C42A3DAF190098C1BC /* URLComponents+Extension.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -182,7 +182,7 @@
 				92844FF62A3F2E5900A10FAC /* DetailView.swift in Sources */,
 				92AE00A62A3C8F990098C1BC /* Team.swift in Sources */,
 				92AE00912A3C89F60098C1BC /* FootLeagueApp.swift in Sources */,
-				92AE00C52A3DAF190098C1BC /* URLFromAPI.swift in Sources */,
+				92AE00C52A3DAF190098C1BC /* URLComponents+Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
