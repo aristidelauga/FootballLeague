@@ -22,6 +22,11 @@ class SoccerLeagueViewModel: ObservableObject {
     case decodingError = "Error decoding the datas"
   }
   
+  func query(from oldValue: inout URLComponents, to newValue: URLComponents, name: String, value: String) {
+    oldValue = newValue
+    oldValue.queryItems = [URLQueryItem(name: name, value: value)]
+  }
+  
   func load<T: Codable>(from components: URLComponents, type: T.Type) async throws -> T {
     
     guard let soccerUrl = components.url else {
@@ -38,7 +43,6 @@ class SoccerLeagueViewModel: ObservableObject {
     return decodedResponse
   }
   
-  
   func filteredTeams(_ teams: [Team]) -> [Team] {
     var filteredTeams: [Team] = []
     for index in 0..<teams.count {
@@ -48,4 +52,7 @@ class SoccerLeagueViewModel: ObservableObject {
     }
     return filteredTeams
   }
+  
+  
+  
 }

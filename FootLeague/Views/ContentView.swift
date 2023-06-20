@@ -38,8 +38,12 @@ struct ContentView: View {
             }
           }
           .onChange(of: currentSelection) { newValue in
-            soccerLeagueViewModel.urlComponents = URLComponents.selectedTeam
-            soccerLeagueViewModel.urlComponents.queryItems = [URLQueryItem(name: "t", value: currentSelection)]
+            if let selection = currentSelection {
+              soccerLeagueViewModel.query(from: &soccerLeagueViewModel.urlComponents,
+                                          to: URLComponents.selectedTeam,
+                                          name: "t",
+                                          value: currentSelection ?? selection)
+            }
             Task {
               soccerLeagueViewModel.selectedTeam = try! await soccerLeagueViewModel.load(from: soccerLeagueViewModel.urlComponents, type: LeagueTeams.self).teams.first!
             }
@@ -53,12 +57,6 @@ struct ContentView: View {
       }
     }
     .searchable(text: $searchText, prompt: "Search by league", suggestions: {
-      if !isSearching && !searchText.isEmpty {
-        ForEach(soccerLeagueViewModel.allLeagues.filter { $0.strLeague.localizedCaseInsensitiveContains(searchText)}) { suggestion in
-          Text(suggestion.strLeague)
-            .searchCompletion(suggestion.strLeague)
-        }
-      }
       if !isSearching {
         ForEach(soccerLeagueViewModel.allLeagues.filter { $0.strLeague.localizedCaseInsensitiveContains(searchText)}) { suggestion in
           Text(suggestion.strLeague)
@@ -67,13 +65,18 @@ struct ContentView: View {
       }
     })
     .onSubmit(of: .search) {
-      soccerLeagueViewModel.urlComponents = URLComponents.teams
-      soccerLeagueViewModel.urlComponents.queryItems = [URLQueryItem(name: "l", value: searchText)]
+      soccerLeagueViewModel.query(
+        from: &soccerLeagueViewModel.urlComponents,
+                                  to: URLComponents.teams,
+                                  name: "l",
+                                  value: searchText
+      )
       Task {
         soccerLeagueViewModel.teams = try! await soccerLeagueViewModel.load(from: soccerLeagueViewModel.urlComponents, type: LeagueTeams.self).teams
         soccerLeagueViewModel.teams = soccerLeagueViewModel.filteredTeams(soccerLeagueViewModel.teams.sorted { $1.strTeam ?? "" < $0.strTeam ?? "" })
       }
-      UIApplication.shared.keyWindow?.endEditing(true)
+//      UIApplication.shared.keyWindow?.endEditing(true)
+      UIApplication.shared.dismissKeyboard()
       searchText = ""
     }
   }
